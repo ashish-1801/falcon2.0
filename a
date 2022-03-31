@@ -1,0 +1,32 @@
+import requests 
+import json
+
+response_list=[] 
+person_names=[]
+
+if __name__ == '__main__':
+
+
+   limit=100
+   with open(filename, 'r') as in_file:
+       in_reader = in_file.readlines()
+       for data in in_reader:
+           if limit > 0:
+               person_names.append(data.rstrip()) 
+               limit -=1
+           else :
+               break
+               
+               
+   """
+   Url of post request and header of type json create linking against each line of text.
+   """
+   
+   
+   url="https://labs.tib.eu/falcon/falcon2/api?mode=long"
+   headers = {'Content-type': 'application/json'}
+   for name in person_names:
+       data = {"text":name }
+       data_json = json.dumps(data)
+       response = requests.post(url, data=data_json, headers=headers)
+       print(response.content)
